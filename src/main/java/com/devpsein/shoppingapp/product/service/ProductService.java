@@ -12,6 +12,7 @@ import com.devpsein.shoppingapp.product.repository.es.ProductEsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.stream.Collectors;
@@ -47,13 +48,13 @@ public class ProductService {
                 .productImage(request.getImages().stream().map(it -> new ProductImage(ProductImage.ImageType.FEATURE,it)).collect(Collectors.toList()))
                 .build();
         product = productRepository.save(product).block();
-        productEsService.saveNewProduct(product);
         // Mongoya yaz
         // ES güncelle
         // Redis Güncelle
         // ES den cevap dön
         // responese nesnesine dönüştür
-        return null;
+        return this.mapToDto(productEsService.saveNewProduct(product).block());
+
     }
 
         // 2-Calc fieldları işle
@@ -65,6 +66,9 @@ public class ProductService {
         Response sınıfından almamız gereken değerlerin constructora ihtiyaç olmadan tanımlanmasını sağladık.
          */
     private ProductResponse mapToDto(ProductEs item) {
+        if (item == null){
+            return null;
+        }
         BigDecimal productPrice = productPriceService.getByMoneyType(item.getId(), MoneyTypes.USD);
 
 
@@ -88,4 +92,7 @@ public class ProductService {
 
     }
 
+    public Mono<Long> count() {
+        return productRepository.count();
+    }
 }
