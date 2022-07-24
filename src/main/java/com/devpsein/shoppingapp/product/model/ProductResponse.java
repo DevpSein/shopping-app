@@ -13,7 +13,7 @@ public class ProductResponse {
     private String image;
     private String name;
     private String description;
-    private ProductSellerResponse seller ;
+    private ProductSellerResponse seller ; // Producy seller response daki fieldlari seller altında çağırıyorum.
     private String features;
     private int available;
     private boolean freeDelivery;

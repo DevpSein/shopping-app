@@ -1,16 +1,18 @@
 package com.devpsein.shoppingapp.product.domain;
 
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.math.BigDecimal;
+
 import java.util.List;
 
 @Document(collation = "product")
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode(of = "id")
 public class Product {
 

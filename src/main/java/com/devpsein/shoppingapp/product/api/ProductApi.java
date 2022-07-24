@@ -1,6 +1,5 @@
 package com.devpsein.shoppingapp.product.api;
 
-import com.devpsein.shoppingapp.product.domain.ProductImage;
 import com.devpsein.shoppingapp.product.model.ProductResponse;
 
 import com.devpsein.shoppingapp.product.service.ProductService;
