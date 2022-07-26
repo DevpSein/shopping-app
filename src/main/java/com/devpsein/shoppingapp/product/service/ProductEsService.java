@@ -29,6 +29,7 @@ public class ProductEsService {
                 .descrption(product.getDescrption())
                 .features(product.getFeatures())
                 .id(product.getId())
+                .price(product.getPrice())
                 .name(product.getName())
                 // TODO get company name and code
                 .seller(CompanyEs.builder()

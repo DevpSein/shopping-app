@@ -21,7 +21,6 @@ public class ProductResponse {
     private String deliveryIn;
     private BigDecimal price;
     private String categoryId;
-    private MoneyTypes moneyType;
-
+    private String moneySymbol;
 
 }

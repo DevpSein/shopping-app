@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 @Builder
 @Data
@@ -15,8 +16,7 @@ public class ProductSaveRequest {
     // Sellerdan bir linke tıklayıp gitmek isteyebiliriz bu sebeple bir nesne olmalı
     private String features;
     private BigDecimal available;
-    private BigDecimal price;
-    private MoneyTypes money;
+    private HashMap<MoneyTypes,BigDecimal> price ;
     private List<String> images;
     private String sellerId;
     private String categoryId;
