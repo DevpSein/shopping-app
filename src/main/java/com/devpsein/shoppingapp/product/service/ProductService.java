@@ -4,8 +4,8 @@ import com.devpsein.shoppingapp.product.domain.MoneyTypes;
 import com.devpsein.shoppingapp.product.domain.Product;
 import com.devpsein.shoppingapp.product.domain.ProductImage;
 import com.devpsein.shoppingapp.product.domain.es.ProductEs;
-import com.devpsein.shoppingapp.product.model.ProductResponse;
-import com.devpsein.shoppingapp.product.model.ProductSaveRequest;
+import com.devpsein.shoppingapp.product.model.product.ProductResponse;
+import com.devpsein.shoppingapp.product.model.product.ProductSaveRequest;
 import com.devpsein.shoppingapp.product.model.ProductSellerResponse;
 import com.devpsein.shoppingapp.product.repository.mongo.ProductRepository;
 import com.devpsein.shoppingapp.product.repository.es.ProductEsRepository;
@@ -35,7 +35,6 @@ public class ProductService {
         return productEsService.findAll().map(this::mapToDto);
 
     }
-
     public ProductResponse save (ProductSaveRequest request){
         Product product = Product.builder()
                 .active(Boolean.TRUE)

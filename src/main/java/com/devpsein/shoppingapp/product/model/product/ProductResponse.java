@@ -1,6 +1,7 @@
-package com.devpsein.shoppingapp.product.model;
+package com.devpsein.shoppingapp.product.model.product;
 
 import com.devpsein.shoppingapp.product.domain.MoneyTypes;
+import com.devpsein.shoppingapp.product.model.ProductSellerResponse;
 import lombok.Builder;
 import lombok.Data;
 
