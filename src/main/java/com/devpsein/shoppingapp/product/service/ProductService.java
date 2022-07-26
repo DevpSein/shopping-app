@@ -25,6 +25,7 @@ public class ProductService {
     //Kullanacağım
     private final ProductEsRepository productEsRepository;
     private final ProductRepository productRepository;
+    private final ProductPriceService productPriceService;
     private final ProductDeliveryService productDeliveryService;
     private final ProductAmountService productAmountService;
     private final ProductImageService productImageService;
@@ -43,7 +44,6 @@ public class ProductService {
                 .descrption(request.getDescription())
                 .features(request.getFeatures())
                 .name(request.getName())
-                .price(request.getPrice())
                 .productImage(request.getImages().stream().map(it -> new ProductImage(ProductImage.ImageType.FEATURE,it)).collect(Collectors.toList()))
                 .build();
         product = productRepository.save(product).block();
@@ -68,12 +68,11 @@ public class ProductService {
         if (item == null){
             return null;
         }
+        BigDecimal productPrice = productPriceService.getByMoneyType(item.getId(), MoneyTypes.USD);
 
 
         return ProductResponse.builder()
-                // TODO Client request üzerinden validate edilecek
-                .price(item.getPrice().get("USD"))
-                .moneySymbol(MoneyTypes.USD.getSymbol())
+                .price(productPrice)
                 .name(item.getName())
                 .features(item.getFeatures())
                 .id(item.getId())
@@ -81,7 +80,8 @@ public class ProductService {
                 .deliveryIn(productDeliveryService.getDeliveryInfo(item.getId()))
                 .categoryId(item.getCategory().getId())
                 .available(productAmountService.getByProductId(item.getId()))
-                .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(),item.getPrice().get("USD"),MoneyTypes.USD))
+                .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(), productPrice))
+                .moneyType(MoneyTypes.USD)
                 .image(productImageService.getProductMainImage(item.getId()))
                 .seller(ProductSellerResponse.builder()
                         .id(item.getSeller().getId())

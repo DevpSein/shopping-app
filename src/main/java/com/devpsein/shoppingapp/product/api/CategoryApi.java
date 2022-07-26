@@ -16,7 +16,7 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/category")
 public class CategoryApi {
 
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
     @GetMapping
     public Flux<CategoryResponse> getAll(){
