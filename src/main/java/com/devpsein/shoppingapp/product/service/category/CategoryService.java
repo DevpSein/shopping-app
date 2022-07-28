@@ -1,6 +1,6 @@
 package com.devpsein.shoppingapp.product.service.category;
 
-import com.devpsein.shoppingapp.product.domain.category.Category;
+import com.devpsein.shoppingapp.product.domain.es.category.Category;
 import com.devpsein.shoppingapp.product.model.category.CategoryResponse;
 import com.devpsein.shoppingapp.product.model.category.CategorySaveRequest;
 import com.devpsein.shoppingapp.product.repository.mongo.CategoryRepository;

@@ -1,19 +1,16 @@
 package com.devpsein.shoppingapp.product.service;
 
 import com.devpsein.shoppingapp.product.domain.Product;
-import com.devpsein.shoppingapp.product.domain.category.Category;
+import com.devpsein.shoppingapp.product.domain.es.category.Category;
 import com.devpsein.shoppingapp.product.domain.es.CategoryEs;
 import com.devpsein.shoppingapp.product.domain.es.CompanyEs;
 import com.devpsein.shoppingapp.product.domain.es.ProductEs;
 import com.devpsein.shoppingapp.product.repository.es.ProductEsRepository;
 import com.devpsein.shoppingapp.product.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.stream.DoubleStream;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.devpsein.shoppingapp.product.domain.category;
+package com.devpsein.shoppingapp.product.domain.es.category;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,6 @@
 package com.devpsein.shoppingapp.product.repository.mongo;
 
-import com.devpsein.shoppingapp.product.domain.category.Category;
+import com.devpsein.shoppingapp.product.domain.es.category.Category;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
