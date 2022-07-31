@@ -1,4 +1,4 @@
-package com.devpsein.shoppingapp.product.config;
+package com.devpsein.shoppingapp.product.api.config;
 
 import jdk.jfr.Enabled;
 import org.springframework.context.annotation.Configuration;
