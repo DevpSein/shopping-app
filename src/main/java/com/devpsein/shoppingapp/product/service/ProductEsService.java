@@ -1,6 +1,7 @@
 package com.devpsein.shoppingapp.product.service;
 
 import com.devpsein.shoppingapp.product.domain.Product;
+import com.devpsein.shoppingapp.product.domain.ProductImage;
 import com.devpsein.shoppingapp.product.domain.es.category.Category;
 import com.devpsein.shoppingapp.product.domain.es.CategoryEs;
 import com.devpsein.shoppingapp.product.domain.es.CompanyEs;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,9 @@ public class ProductEsService {
                         .name("Test")
                         .build())
                 .category(getProductCategory(product.getCategoryId()))
+                .images(product.getProductImage().stream()
+                .map(ProductImage::getUrl)
+                .collect(Collectors.toList()))
                 .build());
 
     }

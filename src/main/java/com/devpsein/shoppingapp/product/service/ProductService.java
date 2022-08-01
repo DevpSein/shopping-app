@@ -28,7 +28,7 @@ public class ProductService {
     private final ProductPriceService productPriceService;
     private final ProductDeliveryService productDeliveryService;
     private final ProductAmountService productAmountService;
-    private final ProductImageService productImageService;
+
     private final ProductEsService productEsService;
 
     public Flux<ProductResponse> getAll() {
@@ -82,7 +82,7 @@ public class ProductService {
                 .available(productAmountService.getByProductId(item.getId()))
                 .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(), productPrice))
                 .moneyType(MoneyTypes.USD)
-                .image(productImageService.getProductMainImage(item.getId()))
+                .image(item.getImages().get(0))
                 .seller(ProductSellerResponse.builder()
                         .id(item.getSeller().getId())
                         .name(item.getSeller().getName())

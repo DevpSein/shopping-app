@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.List;
+
 @Document(indexName = "product")
 @Getter
 @Setter
@@ -21,4 +23,5 @@ public class ProductEs {
     private String features;
     private CategoryEs category;
     private String code;
+    private List<String> images;
 }
