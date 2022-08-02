@@ -4,6 +4,7 @@ import com.devpsein.shoppingapp.product.domain.MoneyTypes;
 import com.devpsein.shoppingapp.product.domain.Product;
 import com.devpsein.shoppingapp.product.domain.ProductImage;
 import com.devpsein.shoppingapp.product.domain.es.ProductEs;
+import com.devpsein.shoppingapp.product.model.product.ProductDetailResponse;
 import com.devpsein.shoppingapp.product.model.product.ProductResponse;
 import com.devpsein.shoppingapp.product.model.product.ProductSaveRequest;
 import com.devpsein.shoppingapp.product.model.ProductSellerResponse;
@@ -23,12 +24,9 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     //Kullanacağım
-    private final ProductEsRepository productEsRepository;
     private final ProductRepository productRepository;
-    private final ProductPriceService productPriceService;
     private final ProductDeliveryService productDeliveryService;
     private final ProductAmountService productAmountService;
-
     private final ProductEsService productEsService;
 
     public Flux<ProductResponse> getAll() {
@@ -44,6 +42,7 @@ public class ProductService {
                 .descrption(request.getDescription())
                 .features(request.getFeatures())
                 .name(request.getName())
+                .price(request.getPrice())
                 .productImage(request.getImages().stream().map(it -> new ProductImage(ProductImage.ImageType.FEATURE,it)).collect(Collectors.toList()))
                 .build();
         product = productRepository.save(product).block();
@@ -68,11 +67,12 @@ public class ProductService {
         if (item == null){
             return null;
         }
-        BigDecimal productPrice = productPriceService.getByMoneyType(item.getId(), MoneyTypes.USD);
+       //BigDecimal productPrice = productPriceService.getByMoneyType(item.getId(), MoneyTypes.USD);
 
 
         return ProductResponse.builder()
-                .price(productPrice)
+                .price(item.getPrice().get("USD"))
+                .moneySymbol(MoneyTypes.USD.getSymbol())
                 .name(item.getName())
                 .features(item.getFeatures())
                 .id(item.getId())
@@ -80,7 +80,7 @@ public class ProductService {
                 .deliveryIn(productDeliveryService.getDeliveryInfo(item.getId()))
                 .categoryId(item.getCategory().getId())
                 .available(productAmountService.getByProductId(item.getId()))
-                .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(), productPrice))
+                .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(), item.getPrice().get("USD"),MoneyTypes.USD ))
                 .moneyType(MoneyTypes.USD)
                 .image(item.getImages().get(0))
                 .seller(ProductSellerResponse.builder()
@@ -93,5 +93,29 @@ public class ProductService {
 
     public Mono<Long> count() {
         return productRepository.count();
+    }
+
+    public Mono<ProductDetailResponse> getProductDetail(String id) {
+        return this.mapToDto(productEsService.findById(id));
+    }
+    private Mono<ProductDetailResponse> mapToDto(Mono<ProductEs> product) {
+        return product.map(item ->ProductDetailResponse.builder()
+                .price(item.getPrice().get("USD"))
+                .moneySymbol(MoneyTypes.USD.getSymbol())
+                .features(item.getFeatures())
+                .id(item.getId())
+                .description(item.getDescrption())
+                .deliveryIn(productDeliveryService.getDeliveryInfo(item.getId()))
+                .categoryId(item.getCategory().getId())
+                .available(productAmountService.getByProductId(item.getId()))
+                .freeDelivery(productDeliveryService.freeDeliveryCheck(item.getId(),item.getPrice().get("USD"),MoneyTypes.USD))
+                .moneyType(MoneyTypes.USD)
+                .images(item.getImages())
+                .seller(ProductSellerResponse.builder()
+                        .id(item.getSeller().getId())
+                        .name(item.getSeller().getName())
+                        .build())
+                .build());
+
     }
 }

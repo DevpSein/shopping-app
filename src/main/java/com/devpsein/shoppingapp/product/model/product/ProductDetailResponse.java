@@ -6,12 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Builder
-public class ProductResponse {
+public class ProductDetailResponse {
     private String id ;
-    private String image;
+    private List<String> images;
     private String name;
     private String description;
     private ProductSellerResponse seller ; // Producy seller response daki fieldlari seller altında çağırıyorum.
@@ -21,8 +22,6 @@ public class ProductResponse {
     private String deliveryIn;
     private BigDecimal price;
     private String categoryId;
-    private MoneyTypes moneyType;
     private String moneySymbol;
-
-
+    private MoneyTypes moneyType;
 }
