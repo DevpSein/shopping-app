@@ -5,6 +5,7 @@ import com.devpsein.shoppingapp.product.model.product.ProductResponse;
 
 import com.devpsein.shoppingapp.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/products")
 public class ProductApi {
+    @Autowired
     private final ProductService productService;
 
     @GetMapping
@@ -31,5 +33,6 @@ public class ProductApi {
     public Mono<ProductDetailResponse> getProductDetail(@PathVariable("id") String id) throws ResponseStatusException {
             return productService.getProductDetail(id);
     }
+//git checkout prp
 
 }

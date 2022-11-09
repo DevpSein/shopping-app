@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class ProductService {
 
-    //Kullanacağım
+
     private final ProductRepository productRepository;
     private final ProductDeliveryService productDeliveryService;
     private final ProductAmountService productAmountService;

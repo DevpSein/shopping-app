@@ -31,7 +31,7 @@ public class ProductEsService {
                 .id(product.getId())
                 .price(product.getPrice())
                 .name(product.getName())
-                // TODO get company name and code
+                // TODO get company name and code (şirket isimleri ve şirket numarasını al)
                 .seller(CompanyEs.builder()
                         .id(product.getCompany_Id())
                         .name("Test")

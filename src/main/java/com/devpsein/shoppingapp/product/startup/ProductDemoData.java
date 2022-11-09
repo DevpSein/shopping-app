@@ -42,6 +42,7 @@ public class ProductDemoData {
 
         Long countOfData = productService.count().block();
         // assert countOfData != null;
+        // 0L long0 a eşit mi diye kullanılır countOfData değişkeni long tanımlandı
         if (countOfData.equals(0L)) {
 
             productEsRepository.deleteAll().block();

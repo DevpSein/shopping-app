@@ -18,4 +18,5 @@ public class Category {
     private String id;
     private String name;
     private String code;
+    private String deneme;
 }
